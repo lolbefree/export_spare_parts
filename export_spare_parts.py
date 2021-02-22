@@ -102,6 +102,7 @@ class SpareParts(QtWidgets.QDialog):
                 self.provider_list.append(self.ui.provider_.text())
                 self.provider_list = self.provider_list * (row_max - 1)
 
+            # print(f"later = {later}, row_max = {row_num}")
         else:
             if not self.ui.disccount_check.isChecked():
                 self.discount_err = False
@@ -115,6 +116,7 @@ class SpareParts(QtWidgets.QDialog):
                     for item in str(self.ws[f"{later}{row_num}"].value):
                         if item.isalpha() or item.isdigit():
                             string += item
+                            # print(string)
                     if int(row_num) <= row_max:
                         self.original_code.append(self.ws[f"{later}{row_num}"].value)
                         self.original_code_without_symbols.append(string)
@@ -133,6 +135,7 @@ class SpareParts(QtWidgets.QDialog):
                 row_num = int(row_num) + 1
 
     def showDialog(self):
+        # self.clear_all_lists()
         fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '*.xlsx')[0]
         name_index_ = fname.rfind("/")
         self.filename = fname
@@ -224,7 +227,8 @@ where SUPLNO='{self.main_dict[ITEMNO]["SUPLNO"]}' and igrpid='{self.main_dict[IT
                     self.sql_iprr = f"""
                     insert into iprr (CREATED,SUPLNO,ITEMNO,skey,name,SWENAME,IGRPID,DDISCCD,svatcd,BUYPR,SELPR,CURRCD)
                     values (convert(datetime, '{self.key.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}'),'{self.main_dict[ITEMNO]["SUPLNO"]}','{self.main_dict[ITEMNO]["ITEMNO"]}','{self.main_dict[ITEMNO]["skey"]}','{self.main_dict[ITEMNO]["name"]}','{self.main_dict[ITEMNO]["name"]}','{list(self.cursor.execute(group_id))[0][0]}','{self.main_dict[ITEMNO]["DDISCCD"]}','1' ,{self.main_dict[ITEMNO]["BUYPR"]},{self.main_dict[ITEMNO]["SELPR"]},'UAH')"""
-)
+                    # print(self.main_dict[ITEMNO]["skey"])
+                    # print(self.sql_iprr)
                     self.cursor.execute(self.sql_iprr)
                     self.cnn.commit()
                     self.ui.label_itemno.setText(f"Код запчасти : {self.main_dict[ITEMNO]['ITEMNO']}")
@@ -239,7 +243,6 @@ where SUPLNO='{self.main_dict[ITEMNO]["SUPLNO"]}' and igrpid='{self.main_dict[IT
 
                 self.ui.print_res.setText("Сначала добавьте поставщика!")
                 self.ui.print_res.setStyleSheet("color: red")
-
 
     def foresight_clear(self):
 
@@ -286,6 +289,7 @@ where SUPLNO='{self.main_dict[ITEMNO]["SUPLNO"]}' and igrpid='{self.main_dict[IT
             if len(self.original_code_without_symbols) == len(self.name_list) == len(self.group_list) == len(
                     self.discount_list) == len(
                 self.enter_price_list) == len(self.retail_list) == len(self.provider_list):
+                # print(len(set(self.provider_list)))
                 if len(set(self.provider_list)) > 1:
                     self.ui.print_res.setText("Проверьте колонку поставщика, далжно иметь уникальное значение.")
                     self.ui.print_res.setStyleSheet("color: red")
