@@ -239,8 +239,6 @@ where SUPLNO='{self.main_dict[ITEMNO]["SUPLNO"]}' and igrpid='{self.main_dict[IT
 
                 self.ui.print_res.setText("Сначала добавьте поставщика!")
                 self.ui.print_res.setStyleSheet("color: red")
-        # except Exception as err:
-        #     print("tyt",err)
 
 
     def foresight_clear(self):
