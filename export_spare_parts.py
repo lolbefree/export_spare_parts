@@ -369,22 +369,22 @@ where SUPLNO='{self.main_dict[ITEMNO]["SUPLNO"]}' and igrpid='{self.main_dict[IT
                 self.cnn.commit()
                 self.ui.print_res.setText(f"Обновление каталога {self.provider_link_before_delete} успешен")
                 self.ui.print_res.setStyleSheet('color: Green')
-            elif self.ui.radioButton_vw:
+            elif self.ui.radioButton_vw.isChecked():
 
                 self.cursor.execute("dbo.vwpriceimport")
                 self.ui.print_res.setText(f"Обновление каталога VW успешен")
                 self.ui.print_res.setStyleSheet('color: Green')
-            elif self.ui.radioButton_dil:
+            elif self.ui.radioButton_dil.isChecked():
                 self.cursor.execute("dbo.dilpriceimport")
                 self.ui.print_res.setText(f"Обновление каталога Dil успешен")
                 self.ui.print_res.setStyleSheet('color: Green')
 
-            elif self.ui.radioButton_sk:
+            elif self.ui.radioButton_sk.isChecked():
                 self.cursor.execute("dbo.skpriceimport")
                 self.ui.print_res.setText(f"Обновление каталога sk успешен")
                 self.ui.print_res.setStyleSheet('color: Green')
 
-            elif self.ui.radioButton_sk:
+            elif self.ui.radioButton_sk.isChecked():
                 self.cursor.execute("dbo.nzppriceimport")
                 self.ui.print_res.setText(f"Обновление каталога NZP успешен")
                 self.ui.print_res.setStyleSheet('color: Green')
